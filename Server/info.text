@@ -1,0 +1,14 @@
+
+import {MongoClient} from 'mongodb';
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("BlackCoffie");
+  dbo.collection("information").find({}).toArray(function(err, result) {
+    if (err) throw err;
+    app.get("/info", (req, res) => {
+        res.send({ result });
+    });
+    db.close();
+  });
+});
